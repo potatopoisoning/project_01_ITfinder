@@ -1,3 +1,11 @@
-# project
+# ITfinder
 
-file:///C:/Users/jkl/Downloads/%EC%9C%A0%EB%8B%A4%ED%98%84_%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0_1%EC%B0%A8.pdf
+
+
+<br>
+개발기간
+2024.04.08 - 2024.05.03
+
+<br>
+
+[유다현_빅데이터_1차.pdf](https://github.com/user-attachments/files/18779545/_._1.pdf)
