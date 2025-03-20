@@ -1,6 +1,7 @@
 # ITfinder
 - **링크** - <a href="http://jjezen.cafe24.com/TPJ6/index/index.jsp">ITfinder</a> / **ppt** - [빅데이터_1차](https://github.com/user-attachments/files/18779545/_._1.pdf)
-- 관리자 - ID: admin / PW: admin
+- 개인회원 - ID: guest / PW: 1234
+- 기업회원 - ID: ezen / PW: 1234
 
 <br>
 
