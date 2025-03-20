@@ -1,0 +1,19 @@
+@charset "UTF-8";
+.star-rating {
+    direction: rtl; /* 별을 오른쪽에서 왼쪽으로 채워 나갑니다 */
+    display: inline-block;
+}
+.star-rating input[type="radio"] {
+    display: none; /* 라디오 버튼을 숨깁니다 */
+}
+.star-rating label {
+    color: #ccc; /* 비활성화된 별의 색 */
+    font-size: 24px;
+    padding: 0;
+    cursor: pointer;
+}
+.star-rating input[type="radio"]:checked ~ label,
+.star-rating label:hover,
+.star-rating label:hover ~ label {
+    color: #f90; /* 활성화된 별의 색 */
+}

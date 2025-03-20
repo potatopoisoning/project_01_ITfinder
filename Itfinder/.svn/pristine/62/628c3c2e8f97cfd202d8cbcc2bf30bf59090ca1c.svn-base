@@ -1,0 +1,26 @@
+@charset "UTF-8";
+
+.tbl
+{
+	width: 100%;
+	min-width: 1000px;
+	max-width: 1200px;
+	margin: 0 10% 0 7%;
+	border-collapse: collapse;
+}
+
+
+.tbl th,
+.tbl td
+{
+	padding: 10px 0;
+}
+
+textarea .tar
+{
+	width: 100%;
+	min-width: 1000px;
+	max-width: 1200px;
+	margin: 0 10% 0 7%;
+	border-collapse: collapse;
+}		
