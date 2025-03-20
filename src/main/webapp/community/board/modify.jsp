@@ -1,0 +1,158 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/include/head.jsp" %>
+<%
+String pageno  = request.getParameter("page");
+String type    = request.getParameter("type");
+String keyword = request.getParameter("keyword");
+String bkind   = request.getParameter("bkind");
+String bno     = request.getParameter("no");
+if(pageno  == null) pageno  = "1";
+if(type    == null) type    = "T";
+if(keyword == null) keyword = "";
+if(bkind   == null) bkind   = "F";
+if(bno == null || bno.equals(""))
+{
+	response.sendRedirect("/TPJ6/index/index.jsp");
+	return;	
+}
+
+//게시물 정보를 조회한다.
+BoardDTO bdto = new BoardDTO();
+BoardVO  vo   = bdto.Read(bno, false);
+if(!login.getUno().equals(vo.getUno())) //로그인 회원정보와 게시물 작성 회원이 불일치하면
+{
+	response.sendRedirect("index.jsp");
+	return;	
+}
+%>
+
+<script>
+window.onload = function()
+{
+ $("$btitle").focus();	
+}
+
+function DoModify()
+{
+	if($("#btitle").val() == "")
+	{
+		$("#btitle").focus();
+		alert("제목을 입력하세요.");
+		return;
+	}
+	if($("#bnote").val() == "")
+	{
+		$("#bnote").focus();
+		alert("내용을 입력하세요.");		
+		return;
+	}
+	if(confirm("변경된 게시물을 작성하시겠습니까?") == false)
+	{
+		return;
+	}
+	$("#modify").submit();
+}
+
+</script>
+<!--------------------------------------------  컨텐츠 시작 영역 -->
+<br>
+<table class="tbl">
+	<tr>
+			<form id="modify" name="modify" method="post" action="modifyok.jsp" enctype="multipart/form-data">
+			<input type="hidden" id="page" name="page" value="<%= pageno %>">
+			<input type="hidden" id="type" name="type" value="<%= type %>">
+			<input type="hidden" id="keyword" name="keyword" value="<%= keyword %>">
+			<input type="hidden" id="kind" name="kind" value="<%= bkind %>">
+			<input type="hidden" id="no" name="no" value="<%= bno %>">
+					<td style="height:40px">
+					<%
+						if(login != null && login.getUkind().equals("A"))
+						{
+							%>
+							<span style="font-weight:bold;font-size: 30px;">관리자게시판 글수정</span>
+							<% 
+						}else
+						{
+							%>
+							<span style="font-weight:bold;font-size: 30px;">자유게시판 글수정</span>
+							<%
+						}
+						%>
+					</td>
+				</tr>																		
+			<table class="tbl" border="1">
+				<tr>
+					<td style="width:120px; text-align:center; background-color:lightgray;">제목</td>
+					<td>&nbsp;<input type="text" id="btitle" name="btitle" style="width:95%; height:30px;" value="<%= vo.getBtitle() %>"></td>
+				</tr>
+				<%
+				if(login != null && login.getUkind().equals("A"))
+				{
+					%>	
+				<tr>
+					<td style="width:120px; text-align:center; background-color:lightgray;">구분</td>
+					<td>
+						&nbsp;<input type="radio" id="bkind" name="bkind" value="R" <%= bkind.equals("R") ? "checked":"" %>>취업뉴스
+						&nbsp;<input type="radio" id="bkind" name="bkind" value="N" <%= bkind.equals("N") ? "checked":"" %>>공지사항
+						&nbsp;<input type="radio" id="bkind" name="bkind" value="F" <%= bkind.equals("F") ? "checked":"" %>>일반게시글
+					</td>
+				</tr>						
+				<tr>
+					<td style="width:120px; text-align:center; background-color:lightgray;">내용</td>
+					<td><textarea id="bnote" name="bnote"  style="width:95%; height:200px;"><%= vo.getBnote() %></textarea></td>
+				</tr>
+				<tr>
+					<td style="width:120px; text-align:center; background-color:lightgray;">출처</td>
+					<td>&nbsp;<input type="text" id="bsource" name="bsource" style="width:95%; height:20px;"></td>
+				</tr>
+				<%
+				}else
+				{
+					%>
+				<tr>
+					<td style="width:120px; text-align:center; background-color:lightgray;">구분</td>
+					<td>
+						&nbsp;<input type="radio" id="bkind" name="bkind" value="F" <%= bkind.equals("F") ? "checked":"" %>>일반게시글
+					</td>
+				</tr>						
+				<tr>
+					<td style="width:120px; text-align:center; background-color:lightgray;">내용</td>
+					<td>&nbsp;<textarea id="bnote" name="bnote"  style="width:95%; height:200px;"><%= vo.getBnote() %></textarea></td>
+				</tr>
+				<% 
+				}
+				%>
+				<tr>
+					<td style="width:120px; text-align:center; background-color:lightgray;">첨부파일</td>
+					<td>&nbsp;<input id="fname" name="fname" type="file" style="width:95%"></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					<%
+					if(vo.getFname() != null && !vo.getFname().equals(""))
+					{
+						%><a href="down.jsp?no=<%= bno %>"><%= vo.getFname() %></a><%
+					}else
+					{
+						%>첨부된 파일이 없습니다.<%
+					}
+					%>
+					</td>
+				</tr>
+				</table>
+			<table class="tbl">	
+				<tr>
+					<td style="text-align:center;" colspan="2">
+						<input type="button" onclick="DoModify();" value="글수정 완료">
+						<input type="button" onclick="window.location.href='view.jsp?no=<%= bno %>&type=<%= type %>&keyword=<%= keyword %>&kind=<%= bkind %>&page=<%= pageno %>'" value="글수정 취소">					
+					</td>
+				</tr>
+			</table>					
+			</form>		
+		</td>
+	</tr>
+</table>
+<br>
+<!--------------------------------------------  컨텐츠 종료 영역 -->
+<%@ include file="/include/tail.jsp" %>

@@ -1,0 +1,164 @@
+@charset "UTF-8";
+*
+{
+	margin: 0;
+	padding: 0;
+}
+header
+{
+	border-bottom: 1px solid #ddd; 
+}
+
+header > div
+{
+	width: 90%;
+	min-width: 1000px;
+	max-width: 1200px;
+	height: 90px;
+	margin: 0 auto;
+}
+
+footer
+{
+	border-top: 1px solid #ddd; 
+}
+
+footer > div
+{
+	width: 90%;
+	min-width: 1000px;
+	max-width: 1200px;
+	height: 100px;
+	margin: 0 auto;
+}
+
+a
+{
+	text-decoration: none;
+	color: inherit;
+}
+
+.navbar
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 13px 13px;
+}
+/*
+.navbar_logo
+{
+	font-size: 24px;
+}
+*/
+
+.navbar_menu
+{
+	display: flex;
+	list-style: none;
+	padding-left: 0;
+}
+
+.navbar_menu i
+{
+	display: flex;
+	list-style: none;
+	padding-left: 0;	
+}
+
+.navbar_menu li
+{
+	padding: 13px 13px;
+}
+
+.navbar_menu > .li1:hover
+{
+	font-weight: bold;	
+}
+
+.navbar_menu i
+{
+	padding: 4px;
+}
+
+.navbar_menu li ul
+{
+	padding-top: 30px;	
+}
+
+.con li
+{
+	width: 120px;	
+	font-size: 14pt;
+}
+
+.con li > ul > li
+{
+	width: 120px;
+	font-size: 12pt;
+	height: 40px;
+	padding : 0px;
+	padding-top: 13px;
+	margin-left : 13px;	
+	vertical-align : middle;
+	border: solid 1px #f4f4f4;
+	font-weight: normal;	
+}
+
+.con li > ul > li:hover
+{
+	background-color: #ddd;
+}
+
+/* 노멀라이즈 시작 */
+body, ul, li {
+  list-style: none;		/* 해당 태그의 list-style을 none으로 하는 것으로 ●을 제거한다 */
+}
+
+/* 숨겨줌 */
+.top-bar__menu-box-1 > ul ul {
+  display: none;
+}
+
+/* 나란히 */
+.top-bar__menu-box-1 > ul > li {
+  display: inline-block;
+}
+
+.top-bar__menu-box-1 {
+  text-align: center;
+}
+
+.top-bar__menu-box-1 ul > li > a {
+display: block;
+}
+
+/*
+.top-bar__menu-box-1 ul > li:hover > a {
+  background-color: #ddd;
+}
+*/
+
+/* 자기자신을 기준으로 이동 */
+.top-bar__menu-box-1 > ul > li {
+  position: relative;
+}
+
+/* 부모를 기준으로 이동 */
+.top-bar__menu-box-1 > ul > li > ul {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+/* 2차 메뉴가 보임 */
+.top-bar__menu-box-1 > ul > li:hover > ul {
+  display: block;
+}
+.top-bar__menu-box-1 ul {
+  background-color: white;
+}
+td > i
+{
+ 	font-size:30px;
+}
+	

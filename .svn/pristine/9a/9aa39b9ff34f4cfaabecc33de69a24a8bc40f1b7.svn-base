@@ -1,0 +1,151 @@
+drop database itfinderdb;
+create database itfinderdb;
+use itfinderdb;
+
+-- 회원관리
+create table user
+(
+	uno int not null primary key auto_increment comment '회원번호',
+	uid varchar(100) comment '아이디',
+	upw varchar(100) comment '비밀번호',
+	uname varchar(50) not null comment '이름',
+	ukind varchar(10) comment '회원구분',
+	ubirth varchar(20) comment '생년월일',
+	uphone varchar(20) comment '연락처',
+	uemail varchar(50) comment '이메일',
+	ulicensenum varchar(20) comment '사업자등록번호',
+	uceo varchar(20) comment '대표자명',
+	usize varchar(20) comment '기업규모',
+	uindustry varchar(20) comment '기업업종',
+	pname varchar(250) comment '물리파일명',
+	uretire varchar(2) default 'N' comment '탈퇴여부',
+	ujoindate datetime default now() comment '가입일자',
+	agreeterm varchar(2) comment '이용약관동의',
+	agreeinfo varchar(2) comment '개인정보수집동의',
+	agreemarket varchar(10) comment '마케팅동의'
+);
+
+-- 게시물
+create table board
+(
+	bno int not null primary key auto_increment comment '게시물번호',
+	uno int not null comment '회원번호',
+	btitle varchar(250) comment '제목',
+	bnote text comment '내용',
+	bwdate datetime default now() comment '작성일자',
+	bhit int default 0 comment '조회수',
+	bkind varchar(10) comment '작성유형',
+	btop varchar(50) comment '공지사항상단',
+	bsource varchar(250) comment '뉴스출처',
+	foreign key (uno) references user(uno)
+);
+
+-- 첨부파일
+create table attach
+(
+	ano int not null primary key auto_increment comment '첨부번호',
+	bno int not null comment '게시물번호',
+	pname varchar(250) comment '물리파일명',
+	fname varchar(250) comment '논리파일명',
+	foreign key (bno) references board(bno)
+);
+
+-- 댓글정보
+create table reply
+(
+	rno int primary key not null auto_increment comment '댓글번호',
+	bno int not null comment '게시물번호',
+	uno int not null comment '댓글작성회원번호',
+	rnote text comment '댓글내용',
+	rwdate datetime default now() comment '작성일자',
+	foreign key (bno) references board(bno),
+	foreign key (uno) references user(uno)	
+);
+
+
+-- 기업리뷰
+create table review
+(
+	rvno int not null primary key auto_increment comment '리뷰번호',
+	uno int comment '리뷰작성회원번호',
+	rvuno int comment '리뷰대상회원번호',
+	rvcompanyname varchar(250) comment '리뷰대상회사명',
+	rvtotal int comment '별점_총점',
+	rvbalance int comment '별점_워라벨균형',
+	rvpay int comment '별점_급여',
+	rvculture int comment '별점_사내문화',
+	rvcomment text comment '한줄평',
+	rvgood text comment '장점',
+	rvbad text comment '단점',
+	foreign key (uno) references user(uno),
+	foreign key (rvuno) references user(uno)
+);
+
+-- 이력서
+create table resume
+(
+	reno int not null primary key auto_increment comment '이력서번호',
+	uno int not null comment '회원번호',
+	reeducation varchar(50) comment '학력',
+	rescore varchar(10) comment '학점',
+	reschoolname varchar(50) comment '학교명',
+	remajor varchar(50) comment '전공명',
+	regraduation datetime comment '졸업일자',
+	recompanyname varchar(50) comment '경력회사명',
+	retenure varchar(5) comment '재직기간',
+	reposition varchar(50) comment '직급',
+	restatus varchar(10) comment '재직여부',
+	reperformance text comment '주요성과',
+	reself text comment '자기소개서',
+	rewdate datetime default now() comment '작성일자',
+	retitle text comment '이력서제목',
+	foreign key (uno) references user(uno)	
+);
+
+
+-- 채용공고등록
+create table job
+(
+	jno int not null primary key auto_increment comment '채용공고번호',
+	uno int not null comment '회원번호',
+	jtitle varchar(100) comment '채용공고명',
+	jkind varchar(2) comment '채용유형',
+	jperiod1 varchar(50) comment '모집기간',
+	jperiod2 varchar(50) comment '모집기간',
+	jnumber int comment '모집인원',
+	jtype varchar(10) comment '모집업종',
+	jnote text comment '직무내용',
+	jhour varchar(100) comment '근무시간',
+	jregion varchar(20) comment '근무지역',
+	jpay varchar(20) comment '급여',
+	jeducation varchar(20) comment '학력',
+	jeducation2 varchar(20) comment '학력예정자',
+	jcareer varchar(20) comment '경력',
+	jwdate datetime default now() comment '작성일자',
+	jhit int default 0 comment '조회수',
+	foreign key(uno) references user(uno)
+);
+
+-- 복리후생
+create table benefit
+(
+	beno int not null primary key auto_increment comment '복리후생관리번호',
+	jno int not null comment '채용공고번호',
+	bekind varchar(4) comment '분야코드',
+	bename varchar(50) comment '분야명',
+	foreign key(jno) references job(jno)
+);
+
+-- 지원자관리정보======================================================================
+create table applicant
+(
+	apno int not null primary key auto_increment comment '지원자관리번호',
+	reno int not null comment '이력서번호',
+	jno int not null comment '채용공고번호',
+	foreign key(reno) references resume(reno),
+	foreign key(jno) references job(jno)	
+); 
+-- =================================================================================
+-- 관리자로 타입 바꾸기
+update user set ukind = 'A' where uno = 1;
+
